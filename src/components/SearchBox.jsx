@@ -1,12 +1,30 @@
-export const SearchBox = ({ name, onChange }) => {
+import { useState } from "react";
+
+const SearchBox = ({onSubmit }) => {
+  const [query, setQuery] = useState('');
+  const changeInput = e => {
+    setQuery(e.currentTarget.value);
+  }
+  const handleSubmit = e => {
+    e.preventDefault();
+    setQuery(query.toLowerCase().trim());
+    onSubmit(query);
+    setQuery('');
+  };
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
+       name="search"
         type="text"
-        value={name}
-        onChange={e => onChange(e.target.value)}
+        value={query}
+        placeholder="Search movies"
+        required
+        autoFocus
+        autoComplete="off"
+        onChange={changeInput}
       />
       <button type='submit'>Search</button>
-    </div>
+    </form>
   );
 };
+export default SearchBox;

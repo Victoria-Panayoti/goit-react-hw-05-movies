@@ -1,25 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { fetchTrendingMovies } from '../service/Api';
+
 const Home = () => {
-  const [movies] = useState([
-    'movie-1',
-    'movie-2',
-    'movie-3',
-    'movie-4',
-    'movie-5',
-  ]);
+  const [movies, setMovies] = useState([]);
   const location = useLocation();
-  // запит популярних фільмів
+  useEffect(() => {
+    const getTrendingMovies = async () => {
+      try {
+        const data = await fetchTrendingMovies();
+        setMovies(data.results);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTrendingMovies();
+  }, []);
   return (
     <ul>
-      {movies.map(movie => {
-        return (
-          <li key={movie}>
-            <Link to={`movies/${movie}`} state={{from:location}}>{movie}</Link>
-          </li>
-        );
-      })}
+      {movies.map(({ id, original_title }) => (
+        <li key={id}>
+          <Link to={`movies/${id}`} state={{ from: location }}>
+            {original_title}
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 };

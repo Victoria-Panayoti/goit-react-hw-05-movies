@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
-export const MovieList = ({ movies }) => {
+const MovieList = ({ movies, location }) => {
   return (
-    
-      <ul>
-        {movies.map(movie => {
-          return(<li key={movie.id}>
-              <Link to={`${movie.id}`}>{movie.name}</Link>
-            </li>)
-        })}
-      </ul>
-   
+    <ul>
+      {movies.map(({ id, title }) => (
+        <li key={id}>
+          <Link to={`/movies/${id}`} state={{ from: location }}>
+            {title}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 };
+export default MovieList;
