@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SearchBox = ({onSubmit }) => {
   const [query, setQuery] = useState('');
@@ -8,6 +10,9 @@ const SearchBox = ({onSubmit }) => {
   const handleSubmit = e => {
     e.preventDefault();
     setQuery(query.toLowerCase().trim());
+      if (query === '') {
+      return toast.warn('input value can not be empty');
+    }
     onSubmit(query);
     setQuery('');
   };
