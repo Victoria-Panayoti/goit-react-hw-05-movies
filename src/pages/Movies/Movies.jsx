@@ -5,8 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { fetchSearchMovies } from 'service/Api';
 import { Loader } from 'components/Loader/Loader';
-import SearchBox from 'components/SearchBox';
-import MovieList from 'components/MovieList';
+import SearchBox from 'components/SearchBox/SearchBox';
+import MovieList from 'components/MovieList/MovieList';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();

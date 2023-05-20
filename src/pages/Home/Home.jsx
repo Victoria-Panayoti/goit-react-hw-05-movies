@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { fetchTrendingMovies } from '../service/Api';
+import { fetchTrendingMovies } from '../../service/Api';
 import { Loader } from 'components/Loader/Loader';
+import { HomeList, StyledLink } from './Home.styled';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -32,15 +33,15 @@ const Home = () => {
         <>
           <h2>Trending today</h2>
           {movies && (
-            <ul>
+            <HomeList>
               {movies.map(({ id, original_title }) => (
                 <li key={id}>
-                  <Link to={`movies/${id}`} state={{ from: location }}>
+                  <StyledLink to={`movies/${id}`} state={{ from: location }}>
                     {original_title}
-                  </Link>
+                  </StyledLink>
                 </li>
               ))}
-            </ul>
+            </HomeList>
           )}
         </>
       )}

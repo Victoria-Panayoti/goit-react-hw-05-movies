@@ -3,7 +3,9 @@ import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchMovieDetails } from 'service/Api';
+import defaultImg from '../../components/not-found.jpg'
 import { Loader } from 'components/Loader/Loader';
+import { AdditionalItem, AdditionalList, ItemDetails, MovieItem } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -32,10 +34,12 @@ const MovieDetails = () => {
     <>
       <Link to={backLinkLocationRef.current}>Go back</Link>
       {isLoading && <Loader />}
+      <MovieItem>
       {poster_path
         ? <img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt={title} />
-        :<img src='/src/components/not-found.jpg' alt={title} />
-      }
+        :<img src={defaultImg} alt={title} />
+        }
+        <ItemDetails>
       <h2>{title}</h2>
       <p>User score {Math.round(vote_average)}%</p>
       <h3>Overview</h3>
@@ -43,16 +47,18 @@ const MovieDetails = () => {
       <h3>Genres</h3>
       {genres && genres.length > 0 && (
         <p>{genres.map(genre => genre.name).join(' ')}</p>
-      )}
+          )}
+          </ItemDetails>
+        </MovieItem>
       <h3>Additional information</h3>
-      {movie &&(<ul>
-        <li>
+      {movie &&(<AdditionalList>
+        <AdditionalItem>
           <Link to="cast">Cast</Link>
-        </li>
-        <li>
+        </AdditionalItem>
+        <AdditionalItem>
           <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>)}
+        </AdditionalItem>
+      </AdditionalList>)}
       
       <Suspense fallback={<Loader/>}>
         <Outlet />

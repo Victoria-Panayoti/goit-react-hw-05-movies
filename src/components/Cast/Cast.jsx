@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchCast } from 'service/Api';
+import defaultImg from '../../components/not-found.jpg'
+import { CastImg, CastItem, CastList } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -24,22 +26,22 @@ const Cast = () => {
     <div>
       <h2>Cast</h2>
       {cast.length > 0 ? (
-        <ul>
+        <CastList>
           {cast.map(({ id, name, character, profile_path }) => (
-            <li key={id}>
+            <CastItem key={id}>
               {profile_path ? (
-                <img
+                <CastImg
                   src={`https://image.tmdb.org/t/p/w300${profile_path}`}
                   alt={name}
                 />
               ) : (
-                <img src="/src/components/not-found.jpg" alt={name} />
+                  <CastImg src={defaultImg} alt={name} />
               )}
               <p>{name}</p>
-              <p>{character}</p>
-            </li>
+              <p>Character: {character}</p>
+            </CastItem>
           ))}
-        </ul>
+        </CastList>
       ) : (
         <p>We didn't have any result</p>
       )}
