@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { fetchTrendingMovies } from '../../service/Api';
 import { Loader } from 'components/Loader/Loader';
-import { HomeList, StyledLink } from './Home.styled';
+import MovieList from 'components/MovieList/MovieList';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -33,15 +33,7 @@ const Home = () => {
         <>
           <h2>Trending today</h2>
           {movies && (
-            <HomeList>
-              {movies.map(({ id, original_title }) => (
-                <li key={id}>
-                  <StyledLink to={`movies/${id}`} state={{ from: location }}>
-                    {original_title}
-                  </StyledLink>
-                </li>
-              ))}
-            </HomeList>
+              <MovieList movies={movies} location={location } />
           )}
         </>
       )}

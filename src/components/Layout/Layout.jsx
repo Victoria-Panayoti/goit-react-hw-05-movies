@@ -8,7 +8,7 @@ import { Container, Header, Link, Main   } from './Layout.styled';
 const Layout = () => {
   return (
     <Container>
-      <Header>
+      <Header>  
         <nav>
           <Link to="/">Home</Link>
           <Link to="/movies">Movies</Link>
